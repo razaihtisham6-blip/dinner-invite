@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pick Time</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="./style.css"/>
 </head>
 
 <body class="rose">
@@ -17,26 +17,17 @@
 
     <section class="grid" id="timeGrid" style="grid-template-columns: repeat(3, minmax(0,1fr));">
       <div class="choice" data-time="7pm">
-        <div class="top">
-          <div class="name">7pm</div>
-          <div class="tag">🌙</div>
-        </div>
+        <div class="top"><div class="name">7pm</div><div class="tag">🌙</div></div>
         <div class="ex">Early evening vibes</div>
       </div>
 
       <div class="choice" data-time="8pm">
-        <div class="top">
-          <div class="name">8pm</div>
-          <div class="tag">✨</div>
-        </div>
+        <div class="top"><div class="name">8pm</div><div class="tag">✨</div></div>
         <div class="ex">Perfect dinner time</div>
       </div>
 
       <div class="choice" data-time="9pm">
-        <div class="top">
-          <div class="name">9pm</div>
-          <div class="tag">🌟</div>
-        </div>
+        <div class="top"><div class="name">9pm</div><div class="tag">🌟</div></div>
         <div class="ex">Late & chill</div>
       </div>
     </section>
@@ -52,7 +43,7 @@
   </main>
 
   <!-- Shared helpers -->
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 
   <script>
     /* 🌹 Rose bubble animation */
@@ -109,58 +100,61 @@
       }
     }
 
+    /* 📩 Formspree */
+    const FORMSPREE_URL = "https://formspree.io/f/maqdygby";
+
+    async function sendEmailResponse(data){
+      try{
+        const res = await fetch(FORMSPREE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+        });
+        return res.ok;
+      } catch (e){
+        return false;
+      }
+    }
+
     /* ⏰ Time selection logic */
     const result = document.getElementById("result");
     const finishBtn = document.getElementById("finishBtn");
     const finalBox = document.getElementById("finalBox");
 
-    let selectedTime = null;
-
     makeSelectable("#timeGrid", ".choice", "chosen", (card) => {
-      selectedTime = card.getAttribute("data-time");
+      const selectedTime = card.getAttribute("data-time");
       saveData({ time: selectedTime });
       result.textContent = `Perfect ✅ ${selectedTime} works!`;
       finishBtn.style.display = "inline-block";
     });
-    const FORMSPREE_URL = "https://formspree.io/f/maqdygby";
 
-async function sendEmailResponse(data){
-  try{
-    const res = await fetch(FORMSPREE_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(data)
+    finishBtn.addEventListener("click", async () => {
+      const data = getData();
+
+      launchConfetti();
+
+      const payload = {
+        accepted: "Yes",
+        food: data.food || "",
+        time: data.time || "",
+        submitted_at: new Date().toLocaleString()
+      };
+
+      await sendEmailResponse(payload);
+
+      finalBox.style.display = "block";
+      finalBox.innerHTML =
+        `Food: <b>${data.food || "—"}</b> 🍽️<br/>` +
+        `Time: <b>${data.time || "—"}</b> ⏰<br/><br/>` +
+        `See you then, until that take care.<br/>Thanks for making out some time !! ❤️`;
+
+      finishBtn.disabled = true;
+      finishBtn.textContent = "Done 🎉";
     });
-    return res.ok;
-  } catch (e){
-    return false;
-  }
-}
-finishBtn.addEventListener("click", async () => {
-  const data = getData();
+  </script>
+</body>
+</html>
 
-  launchConfetti();
 
-  const payload = {
-    accepted: "Yes",
-    food: data.food || "",
-    time: data.time || "",
-    submitted_at: new Date().toLocaleString()
-  };
-
-  await sendEmailResponse(payload);
-
-  finalBox.style.display = "block";
-  finalBox.innerHTML =
-    `Food: <b>${data.food || "—"}</b> 🍽️<br/>` +
-    `Time: <b>${data.time || "—"}</b> ⏰<br/><br/>` +
-    `See you then, until that take care.<br/>Thanks for making out some time !! ❤️`;
-
-  finishBtn.disabled = true;
-  finishBtn.textContent = "Done 🎉";
-});
 
 
