@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pick Food</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body class="rose">
+    <div class="rose-bubbles" id="roseBubbles"></div>
+  <main class="card">
+    <h1>Yay! 😊🌹</h1>
+    <p class="sub"><b>What’s your fav food you like the most?</b><br/>Pick one and I’ll plan it 😄</p>
+
+    <section class="grid" id="foodGrid">
+      <div class="choice" data-food="Thai"><div class="top"><div class="name">Thai</div><div class="tag">🍚🥭</div></div><div class="ex">Rice dishes, Pad Thai, Green curry, <b>Mango sticky rice</b></div></div>
+      <div class="choice" data-food="Korean"><div class="top"><div class="name">Korean</div><div class="tag">🔥🥢</div></div><div class="ex"><b>BBQ</b>, Kimchi, Korean fried chicken, Bibimbap</div></div>
+      <div class="choice" data-food="Indian"><div class="top"><div class="name">Indian</div><div class="tag">🍛✨</div></div><div class="ex"><b>Biryani</b>, Butter chicken, Naan, Tikka</div></div>
+      <div class="choice" data-food="Pakistani"><div class="top"><div class="name">Pakistan</div><div class="tag">🥘🔥</div></div><div class="ex"><b>Karahi</b>, Biryani, BBQ, Nihari, Seekh kebab</div></div>
+      <div class="choice" data-food="Sri Lankan"><div class="top"><div class="name">Sri Lankan</div><div class="tag">🌶️🥥</div></div><div class="ex">Kottu roti, Hoppers, Coconut sambol, Curry & rice</div></div>
+      <div class="choice" data-food="English"><div class="top"><div class="name">English</div><div class="tag">🥩🍟</div></div><div class="ex"><b>Steak</b>, BBQ, Fish & chips, Burgers, Pizza</div></div>
+    </section>
+
+    <div class="result" id="result"></div>
+
+    <div class="footer-actions">
+      <button class="btn primary" id="nextBtn" style="display:none;">Next →</button>
+      <button class="smallbtn" onclick="window.location.href='index.html'">← Back</button>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+  // Animated rose bubbles 🌹
+  (function roseBubbles(){
+    const wrap = document.getElementById("roseBubbles");
+    if(!wrap) return;
+
+    const roses = ["🌹","🌸","💮","🌺"];
+    const maxOnScreen = 18;
+
+    function spawn(){
+      if(wrap.children.length > maxOnScreen) return;
+
+      const el = document.createElement("div");
+      el.className = "rose-bubble";
+      el.textContent = roses[Math.floor(Math.random() * roses.length)];
+
+      const left = Math.random() * 100;          // vw
+      const size = 16 + Math.random() * 22;      // px
+      const dur  = 6 + Math.random() * 8;        // seconds
+      const drift = (Math.random() * 120 - 60);  // px left/right
+      const spin = (Math.random() * 220 - 110);  // deg
+      const scale = 0.85 + Math.random() * 0.7;
+
+      el.style.left = left + "vw";
+      el.style.fontSize = size + "px";
+      el.style.animationDuration = dur + "s";
+      el.style.setProperty("--drift", drift + "px");
+      el.style.setProperty("--spin", spin + "deg");
+      el.style.setProperty("--scale", scale);
+
+      wrap.appendChild(el);
+
+      // remove after animation ends
+      setTimeout(()=> el.remove(), (dur + 0.5) * 1000);
+    }
+
+    // spawn a few instantly
+    for(let i=0;i<8;i++) spawn();
+
+    // then keep spawning
+    setInterval(spawn, 650);
+  })();
+    const result = document.getElementById("result");
+    const nextBtn = document.getElementById("nextBtn");
+    let selectedFood = null;
+
+    makeSelectable("#foodGrid", ".choice", "chosen", (card) => {
+      selectedFood = card.getAttribute("data-food");
+      saveData({ food: selectedFood });
+      result.textContent = `Nice 😄 You chose: ${selectedFood}.`;
+      nextBtn.style.display = "inline-block";
+    });
+
+    nextBtn.addEventListener("click", ()=> {
+      if(!selectedFood) return;
+      window.location.href = "time.html";
+    });
+  </script>
+</body>
+</html>
