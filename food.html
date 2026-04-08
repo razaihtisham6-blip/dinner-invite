@@ -9,15 +9,19 @@
 <body class="rose">
     <div class="rose-bubbles" id="roseBubbles"></div>
   <main class="card">
-    <h1>Yay! 😊🌹</h1>
-    <p class="sub"><b>What’s your fav food you like the most?</b><br/>Pick one and I’ll plan it 😄</p>
+    <h1>Yay! 😊🌹 ♡ </h1>
+    <p class="sub"><b>What’s your fav food you like the most?</b><br/>Pick one and I’ll plan it 😄 ♡ </p>
 
     <section class="grid" id="foodGrid">
+      <div class="choice" data-food="Surprise"><div class="top"><div class="name">Surprise Me</div><div class="tag">🎲✨</div></div><div class="ex">I’ll let you decide 😉</div></div>
       <div class="choice" data-food="Thai"><div class="top"><div class="name">Thai</div><div class="tag">🍚🥭</div></div><div class="ex">Rice dishes, Pad Thai, Green curry, <b>Mango sticky rice</b></div></div>
       <div class="choice" data-food="Korean"><div class="top"><div class="name">Korean</div><div class="tag">🔥🥢</div></div><div class="ex"><b>BBQ</b>, Kimchi, Korean fried chicken, Bibimbap</div></div>
       <div class="choice" data-food="Indian"><div class="top"><div class="name">Indian</div><div class="tag">🍛✨</div></div><div class="ex"><b>Biryani</b>, Butter chicken, Naan, Tikka</div></div>
       <div class="choice" data-food="Pakistani"><div class="top"><div class="name">Pakistani</div><div class="tag">🥘🔥</div></div><div class="ex"><b>Karahi</b>, Biryani, BBQ, Nihari, Seekh kebab</div></div>
       <div class="choice" data-food="Sri Lankan"><div class="top"><div class="name">Sri Lankan</div><div class="tag">🌶️🥥</div></div><div class="ex">Kottu roti, Hoppers, Coconut sambol, Curry & rice</div></div>
+      <div class="choice" data-food="Chinese"><div class="top"><div class="name">Chinese</div><div class="tag">🥡🥢</div></div><div class="ex"><b>Fried rice</b>, Noodles, Dumplings, Sweet & sour chicken</div></div>
+      <div class="choice" data-food="Italian"><div class="top"><div class="name">Italian</div><div class="tag">🍝🍕</div></div><div class="ex"><b>Pasta</b>, Pizza, Lasagna, Risotto</div></div>
+      <div class="choice" data-food="Bengali"><div class="top"><div class="name">Bengali</div><div class="tag">🐟🍛</div></div><div class="ex"><b>Fish Curry</b>, Hilsa, Biryani, Bhuna Khichuri, Mishti</div></div>
       <div class="choice" data-food="English"><div class="top"><div class="name">English</div><div class="tag">🥩🍟</div></div><div class="ex"><b>Steak</b>, BBQ, Fish & chips, Burgers, Pizza</div></div>
     </section>
 
@@ -31,12 +35,12 @@
 
   <script src="app.js"></script>
   <script>
-  // Animated rose bubbles 🌹
+  // Animated rose bubbles 🌹♡
   (function roseBubbles(){
     const wrap = document.getElementById("roseBubbles");
     if(!wrap) return;
 
-    const roses = ["🌹","🌸","💮","🌺"];
+    const roses = ["🌹","🌸","💮","🌺","♡"];
     const maxOnScreen = 18;
 
     function spawn(){
