@@ -249,3 +249,93 @@ body.rose::before{
     opacity: 0;
   }
 }
+.invite-box{
+  margin:16px auto 8px;
+  width:min(520px,92%);
+  height:130px;
+  position:relative;
+  background:rgba(255,255,255,0.75);
+  border:1px solid rgba(255,45,85,0.18);
+  border-radius:22px;
+  box-shadow:0 12px 30px rgba(0,0,0,0.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+}
+
+.no-btn{
+  position:absolute;
+  left:60%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:linear-gradient(135deg,#fff,#ffe6ef);
+  color:#b1003a;
+  border:1px solid rgba(255,45,85,0.25);
+}
+
+.hint{
+  font-size:13px;
+  color:rgba(120,0,40,0.70);
+  max-width:520px;
+  margin:10px auto 0;
+  line-height:1.5;
+}
+
+.flower-popup{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,210,225,0.55);
+  backdrop-filter: blur(8px);
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.35s ease;
+}
+
+.flower-popup.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.flower-card{
+  width:min(90vw, 380px);
+  padding:34px 24px;
+  border-radius:30px;
+  background:rgba(255,255,255,0.92);
+  border:1px solid rgba(255,45,85,0.18);
+  box-shadow:0 30px 80px rgba(120,0,40,0.25);
+  text-align:center;
+  animation: flowerPop 0.7s ease forwards;
+}
+
+.big-flower{
+  font-size:90px;
+  animation: flowerFloat 1.4s ease-in-out infinite alternate;
+}
+
+.flower-card h2{
+  margin:10px 0 8px;
+  color:#b1003a;
+  font-size:32px;
+}
+
+.flower-card p{
+  margin:0;
+  color:#7a0030;
+  font-weight:700;
+}
+
+@keyframes flowerPop{
+  0%{ transform:scale(0.4) rotate(-8deg); opacity:0; }
+  70%{ transform:scale(1.08) rotate(3deg); opacity:1; }
+  100%{ transform:scale(1) rotate(0deg); opacity:1; }
+}
+
+@keyframes flowerFloat{
+  from{ transform:translateY(0) rotate(-4deg); }
+  to{ transform:translateY(-10px) rotate(4deg); }
+}
