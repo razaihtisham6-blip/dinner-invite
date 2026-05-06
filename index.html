@@ -8,8 +8,19 @@
 </head>
 
 <body class="page1">
+
+  <!-- Heart welcome popup -->
+  <div class="heart-welcome" id="heartWelcome">
+    <div class="heart-card">
+      <div class="heart-big">❤️</div>
+      <h2>Please rate my efforts</h2>
+      <p>At the end, it would be a pleasure to listen up the yapping :)</p>
+      <button class="btn primary" id="startBtn">Start 💕</button>
+    </div>
+  </div>
+
   <main class="card">
-    <h1>Assalam o Alaikum! Are you free on Sunday for dinner?</h1>
+    <h1>Assalam o Alaikum! Are you free on Saturday for dinner?</h1>
     <p class="sub">🌸❤️ Just a tiny question... with a big smile 🙂</p>
 
     <div class="invite-box">
@@ -18,10 +29,13 @@
     </div>
 
     <div class="result" id="result"></div>
-    <div class="hint"> Appreciate Your Time ! I know you are busy with your stuff and commitments, but I would love to take you out for dinner 🙂 wouldn't be Long Enough.</div>
+
+    <div class="hint">
+      I know you are busy with your stuff and commitments, but I would love to take you out for dinner 🙂
+    </div>
   </main>
 
-  <!-- Flower popup -->
+  <!-- Flower popup after Yes -->
   <div class="flower-popup" id="flowerPopup">
     <div class="flower-card">
       <div class="big-flower">🌹</div>
@@ -37,7 +51,14 @@
     const noBtn = document.getElementById("noBtn");
     const box = noBtn.parentElement;
     const result = document.getElementById("result");
+
+    const heartWelcome = document.getElementById("heartWelcome");
+    const startBtn = document.getElementById("startBtn");
     const flowerPopup = document.getElementById("flowerPopup");
+
+    startBtn.addEventListener("click", () => {
+      heartWelcome.classList.add("hide");
+    });
 
     function moveNo(){
       const boxRect = box.getBoundingClientRect();
@@ -58,14 +79,17 @@
     }
 
     noBtn.addEventListener("mouseover", moveNo);
+
     noBtn.addEventListener("mousedown", (e) => {
       e.preventDefault();
       moveNo();
     });
+
     noBtn.addEventListener("touchstart", (e) => {
       e.preventDefault();
       moveNo();
     }, { passive:false });
+
     noBtn.addEventListener("click", (e) => {
       e.preventDefault();
       moveNo();
